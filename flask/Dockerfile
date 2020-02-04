@@ -1,14 +1,10 @@
-# Use the Python3.7.2 image
-FROM python:3.7.2-stretch
+FROM python:3.7
 
-# Set the working directory to /app
-WORKDIR /app
+WORKDIR /chat_system
 
-# Copy the current directory contents into the container at /app 
-ADD . /app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install the dependencies
-RUN pip install -r requirements.txt 
+COPY . .
 
-# run the command to start uWSGI
-CMD ["uwsgi", "app.ini"] 
+CMD [ "python", "app.py" ]
